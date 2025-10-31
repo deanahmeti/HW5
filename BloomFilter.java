@@ -224,13 +224,14 @@ class BloomFilter {
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
 
+
              //create loop for functions
-             for ( int i = 0; i < k; i++) { 
-                  int hash = computeHash(s, i);
-                  int index = Math.abs(hash % data.size());
+             for ( int i = 0; i < noHashes; i++) { 
+                  long hc = computeHash(s, i);
+                  int bitNo = (int)(hc) & this.hashMask;
 
                   //return false if bits arent set
-                  if (!data.get(index)) {
+                  if (!data.get(bitNo)) {
                            return false;
                   }
                       
@@ -241,6 +242,11 @@ class BloomFilter {
 
 
 
+
+    private int computeHash(String s, int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'computeHash'");
+    }
 
     /*********************************
      *
