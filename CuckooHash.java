@@ -250,34 +250,34 @@ public class CuckooHash<K, V> {
 		// Also make sure you read this method's prologue above, it should help
 		// you. Especially the two HINTS in the prologue.
 
-		Entry<K, V> element = new Entry<>(key, value);
+		Bucket<K, V> element = new Bucket<>(key, value);
 		
 		//start a first hash
-		int location = h1(key); 
+		int location = hash1(key); 
 
 		for (int i = 0; i < CAPACITY; i++) {
 
-			if (buckets[location] == null) { //if bucket empty 
-				buckets[location] = element; //placing element
+			if (table[location] == null) { //if bucket empty 
+				table[location] = element; //placing element
 				return;
 			}
 
-			Entry<K, V> temp = buckets[location];
-			buckets[location] = element;
+			Bucket<K, V> temp = table[location];
+			table[location] = element;
 
 			element = temp; 
 
 			//switch locations
-			if (location == h1(element.key)) {
-				location = h2(element.key);
+			if (location == hash1(element.getBucKey())) {
+				location = hash2(element.getBucKey());
 			} else {
-				location = h1(element.key);
+				location = hash1(element.getBucKey());
 			}
 		}
 
 		rehash(); //hit capacity 
 
-		put(element.key, element.value); //after rehash - reinsert element
+		put(element.getBucKey(), element.getValue()); //after rehash - reinsert element
 
 	}
 
