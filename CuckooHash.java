@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   dean ahmeti / comp 272 - 002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -250,7 +250,35 @@ public class CuckooHash<K, V> {
 		// Also make sure you read this method's prologue above, it should help
 		// you. Especially the two HINTS in the prologue.
 
-		return;
+		Entry<K, V> element = new Entry<>(key, value);
+		
+		//start a first hash
+		int location = h1(key); 
+
+		for (int i = 0; i < CAPACITY; i++) {
+
+			if (buckets[location] == null) { //if bucket empty 
+				buckets[location] = element; //placing element
+				return;
+			}
+
+			Entry<K, V> temp = buckets[location];
+			buckets[location] = element;
+
+			element = temp; 
+
+			//switch locations
+			if (location == h1(element.key)) {
+				location = h2(element.key);
+			} else {
+				location = h1(element.key);
+			}
+		}
+
+		rehash(); //hit capacity 
+
+		put(element.key, element.value); //after rehash - reinsert element
+
 	}
 
 
