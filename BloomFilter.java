@@ -248,9 +248,7 @@ class BloomFilter {
         int hash2 = Integer.rotateLeft(hash1, 16); //second base 
         int combined = hash1 + i * hash2; 
         combined = Math.abs(combined); //ensure non-negative
-        return combined % bitSet.length
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'computeHash'");
+        return combined % data.size();
     }
 
     /*********************************
