@@ -244,6 +244,11 @@ class BloomFilter {
 
 
     private int computeHash(String s, int i) {
+        int hash1 = s.hashCode(); //first base
+        int hash2 = Integer.rotateLeft(hash1, 16); //second base 
+        int combined = hash1 + i * hash2; 
+        combined = Math.abs(combined); //ensure non-negative
+        return combined % bitSet.length
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'computeHash'");
     }
