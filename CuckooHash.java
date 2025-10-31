@@ -284,26 +284,6 @@ public class CuckooHash<K, V> {
 			count++;
 		}
 
-		for (int i = 0; i < CAPACITY; i++) {
-
-			if (table[location] == null) { //if bucket empty 
-				table[location] = element; //placing element
-				return;
-			}
-
-			Bucket<K, V> temp = table[location];
-			table[location] = element;
-
-			element = temp; 
-
-			//switch locations
-			if (location == hash1(element.getBucKey())) {
-				location = hash2(element.getBucKey());
-			} else {
-				location = hash1(element.getBucKey());
-			}
-		}
-
 		rehash(); //hit capacity 
 		put(element.getBucKey(), element.getValue()); //after rehash - reinsert element
 
