@@ -253,7 +253,29 @@ public class CuckooHash<K, V> {
 		Bucket<K, V> element = new Bucket<>(key, value);
 		
 		//start a first hash
-		int location = hash1(key); 
+		int location = computeHash(key, 1); 
+		int count = 0; //count iterations
+
+		while (count < CAPACITY) {
+
+			if (table[location] == null) { //if bucket empty 
+				table[location] = element; //placing element
+				return;
+			}
+
+			Bucket<K, V> temp = table[location];
+			table[location] = element;
+
+			element = temp; 
+
+			//switch locations
+			if (location == computeHash(element.getBucKey(), 1)) {
+				location = computeHash(element.getBucKey(), 2);
+			} else {
+				location = computeHash(element.getBucKey(), 1);
+			}
+			count++;
+		}
 
 		for (int i = 0; i < CAPACITY; i++) {
 
