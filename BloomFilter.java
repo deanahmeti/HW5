@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   dean ahmeti / COMP 272 - 002 
  *
  *   Note, additional comments provided throughout source code is
  *   for educational purposes.
@@ -217,15 +217,29 @@ class BloomFilter {
 
     public boolean contains(String s) {
 
-        // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE
+         // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE
         //
         // HINT: the bitmap is the private class variable 'data', and it is
         // of type BitSet (Java class BitSet). See Oracle documentation for
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
 
-        return false;
+             //create loop for functions
+             for ( int i = 0; i < k; i++) { 
+                  int hash = computeHash(s, i);
+                  int index = Math.abs(hash % data.size());
+
+                  //return false if bits arent set
+                  if (!data.get(index)) {
+                           return false;
+                  }
+                      
+             }
+
+             return true; 
     }
+
+
 
 
     /*********************************
