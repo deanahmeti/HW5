@@ -226,8 +226,8 @@ class BloomFilter {
 
 
              //create loop for functions
-             for ( int i = 0; i < noHashes; i++) { 
-                  long hc = computeHash(s, i);
+             for ( int n = 0; n < noHashes; n++) { 
+                  long hc = hashCode(s, n);
                   int bitNo = (int)(hc) & this.hashMask;
 
                   //return false if bits arent set

@@ -264,6 +264,13 @@ public class CuckooHash<K, V> {
 			}
 
 			Bucket<K, V> temp = table[location];
+
+
+			//Avoid inserting duplicates
+			if (temp.getBucKey().equals(key) && temp.getValue().equals(value)) {
+				return; 
+			}
+
 			table[location] = element;
 
 			element = temp; 
@@ -298,7 +305,6 @@ public class CuckooHash<K, V> {
 		}
 
 		rehash(); //hit capacity 
-
 		put(element.getBucKey(), element.getValue()); //after rehash - reinsert element
 
 	}
