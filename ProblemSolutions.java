@@ -72,7 +72,20 @@ class ProblemSolutions {
 
         // ADD YOUR CODE HERE
 
-        return 0;
+        //Create a min-heap
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        //Add numbers to the heap
+        for (int num : array) {
+            minHeap.add(num);
+
+            //If heap size transcends k - remove smallest integer
+            if (minHeap.size() > k) { 
+                minHeap.poll(); //removes the top (smallest) element
+            }
+        }
+
+        return minHeap.peek();
     }
 
 
@@ -93,7 +106,23 @@ class ProblemSolutions {
 
         // ADD YOU CODE HERE
 
-        return null;
+        //creating a new array to hold elements
+        int[] results = new int[array1.length + array2.length];
+
+        //Copy elements from array 1
+        for (int i = 0; i < array1.length; i++) {
+            results[i] = array1[i];
+        }
+
+        //copy array1 to array2
+        for (int i = 0; i < array2.length; i++) {
+            results[array1.length + i] = array2[i];
+        }
+
+        //Sort two arrays
+        Arrays.sort(results);
+
+        return results;
     }
 
 }
